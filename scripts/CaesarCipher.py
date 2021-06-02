@@ -1,11 +1,15 @@
 def generate_key(n):
-    letters = "abcdefghijklmnopqrstuvwxyz".upper()
+    letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     key = {}
-    count = 0
+    cnt = 0
     for c in letters:
-        key[c] = letters[(count+n) % len(letters)]
-        count += 1
+        key[c] = letters[(cnt + n) % len(letters)]
+        cnt += 1
     return key
+
+
+def get_decryption_key(n):
+    return generate_key(26-n)
 
 
 def encrypt(key, message):
@@ -18,8 +22,10 @@ def encrypt(key, message):
     return cipher
 
 
-if __name__ == "__main__":
-    key = generate_key(3)
-    message = "YOU ARE AWESOME"
-    cipher = encrypt(key, message)
-    print(cipher)
+key = generate_key(3)
+message = "YOU ARE AWESOME"
+cipher = encrypt(key, message)
+print(cipher)
+dkey = get_decryption_key(3)
+message = encrypt(dkey, cipher)
+print(message)
